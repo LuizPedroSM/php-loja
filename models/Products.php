@@ -1,13 +1,13 @@
 <?php
 class Products  extends model
 {
-    public function getList()
+    public function getList($offset = 0, $limit = 3)
     {
         $array = array();
         $sql = "SELECT *,
         (SELECT brands.name FROM brands WHERE brands.id = products.id_brand) as brand_name,
         (SELECT categories.name FROM categories WHERE categories.id = products.id_category) as category_name        
-         FROM products";
+         FROM products LIMIT $offset, $limit";
         $sql = $this->db->query($sql);
 
         if ($sql->rowCount() > 0) {
@@ -23,6 +23,14 @@ class Products  extends model
         }
 
         return $array;
+    }
+
+    public function getTotal()
+    {
+        $sql = "SELECT COUNT(*) as c FROM products";
+        $sql = $this->db->query($sql);
+        $sql = $sql->fetch();
+        return $sql['c'];
     }
 
     public function getImagesByProductId($id)
