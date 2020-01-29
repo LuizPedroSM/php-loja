@@ -6,6 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/bootstrap.min.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/jquery-ui.min.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/jquery-ui.structure.min.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/jquery-ui.theme.min.css" type="text/css" />
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css" type="text/css" />
 	</head>
 	<body>
@@ -109,7 +112,151 @@
 				  	<aside>
 				  		<h1><?php $this->lang->get('FILTER'); ?></h1>
 				  		<div class="filterarea">
+							<div class="filterbox">
+								<div class="filtertitle">
+									<?php $this->lang->get('BRANDS'); ?>
+								</div>
+								<div class="filtercontent">
+									<?php foreach($viewData['filters']['brands'] as $bitem): ?>
+										<div class="filteritem">
+											<input type="checkbox" 
+												name="filter[brand][]" 
+												value="<?php echo $bitem['id']; ?>" 
+												id="brand<?php echo $bitem['id']; ?>
+											">
+											<label for="brand<?php echo $bitem['id']; ?>">
+												<?php echo $bitem['name']; ?>
+											</label>
+											<span>
+												(<?php echo $bitem['count']; ?>)
+											</span>
+										</div>
+									<?php endforeach?>
+								</div>
+							</div>
+							
+							<div class="filterbox">
+								<div class="filtertitle">
+									<?php $this->lang->get('PRICE'); ?>
+								</div>
+								<div class="filtercontent">
+									<input type="text" id="amount" readonly >
+									<div id="slider-range"></div>
+								</div>
+							</div>
 
+							<div class="filterbox">
+								<div class="filtertitle">
+									<?php $this->lang->get('RATING'); ?>
+								</div>
+								<div class="filtercontent">
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="0" id="star0">
+										<label for="star0">
+											(<?php $this->lang->get('NO_STAR'); ?>)
+										</label>
+										<span>
+											(<?php echo $viewData['filters']['stars']['0']; ?>)
+										</span>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="1" id="star1">
+										<label for="star1">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+										</label>
+										<span>
+											(<?php echo $viewData['filters']['stars']['1']; ?>)
+										</span>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="2" id="star2">
+										<label for="star2">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+										</label>
+										<span>
+											(<?php echo $viewData['filters']['stars']['2']; ?>)
+										</span>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="3" id="star3">
+										<label for="star3">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+										</label>
+										<span>
+											(<?php echo $viewData['filters']['stars']['3']; ?>)
+										</span>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="4" id="star4">
+										<label for="star4">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+										</label>
+										<span>
+											(<?php echo $viewData['filters']['stars']['4']; ?>)
+										</span>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="5" id="star5">
+										<label for="star5">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0">
+										</label>
+										<span>
+											(<?php echo $viewData['filters']['stars']['5']; ?>)
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="filterbox">
+								<div class="filtertitle">
+									<?php $this->lang->get('SALE'); ?>
+								</div>
+								<div class="filtercontent">
+									<div class="filteritem">
+										<input type="checkbox" name="filter[sale]" id="sale">
+										<label for="sale">Em Promoção</label>
+										<span>
+											(<?php echo $viewData['filters']['sale']; ?>)
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="filterbox">
+								<div class="filtertitle">
+									<?php $this->lang->get('OPTIONS'); ?>
+								</div>
+								<div class="filtercontent">
+									<?php foreach($viewData['filters']['options'] as $option ): ?>
+										<strong><?php echo $option['name']; ?></strong>
+										<?php foreach($option['options'] as $op ): ?>
+											<div class="filteritem">
+												<input type="checkbox" name="filter[options][]" 
+													value="<?php echo $op['id']; ?>" 
+													id="options<?php echo $op['id']; ?>
+												">
+												<label for="options<?php echo $op['id']; ?>">
+													<?php echo $op['value']; ?>
+												</label>
+												<span>
+													(<?php echo $op['count']; ?>)
+												</span>
+											</div>
+										<?php endforeach; ?>
+									<?php endforeach; ?>
+								
+								</div>
+							</div>
 				  		</div>
 
 				  		<div class="widget">
@@ -229,8 +376,12 @@
 	    		</div>
 	    	</div>
 	    </footer>
-		<script type="text/javascript">var BASE_URL = '<?php echo BASE_URL; ?>';</script>
+		<script type="text/javascript">
+			let BASE_URL = '<?php echo BASE_URL; ?>';
+			let maxslider = <?php echo $viewData['filters']['maxslider']; ?>;
+		</script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 	</body>

@@ -44,7 +44,7 @@ header {
 
 .head_help,
 .head_email {
-    height: 20px;
+    /* height: 20px; */
     line-height: 20px;
     padding-left: 27px;
     padding-right: 15px;
@@ -373,14 +373,17 @@ footer h3 {
 
 .product_tag_red {
     background-color: #f8484a;
+    text-transform: uppercase;
 }
 
 .product_tag_green {
     background-color: #59b210;
+    text-transform: uppercase;
 }
 
 .product_tag_blue {
     background-color: #407ac5;
+    text-transform: uppercase;
 }
 
 .product_name {
@@ -434,4 +437,32 @@ footer h3 {
 
 .dropdown-menu {
     width: 100%;
+}
+
+.filterbox {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.filtertitle {
+    color: #59b210;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.filteritem {
+    height: 25px;
+    font-size: 14px;
+}
+
+.filteritem span {
+    float: right;
+}
+
+.filteritem label {
+    font-weight: normal;
 }
