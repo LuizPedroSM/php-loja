@@ -88,8 +88,16 @@
 									?>
 								<?php endforeach; ?>
 					        </ul>
-					      </li>
-						<li><a href="#">Categoria X</a></li>
+						</li>
+						<?php if(isset($viewData['category_filter'])): ?>
+							<?php foreach($viewData['category_filter'] as $cf): ?>
+								<li>
+									<a href="<?php echo BASE_URL; ?>categories/enter/<?php echo $cf['id']; ?>">
+										<?php echo $cf['name']; ?>
+									</a>
+								</li>
+							<?php endforeach; ?>
+						<?php endif; ?>
 					</ul>
 				</div>
 			</nav>
