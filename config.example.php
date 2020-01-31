@@ -7,6 +7,8 @@ global $db;
 $config = array();
 if(ENVIRONMENT == 'development') {
 	define("BASE_URL", "http://localhost/nova_loja/");
+	define("MAIL_CHIMP_ACTION", "https://");
+	define("MAIL_CHIMP_INPUT", "");
 	$config['dbname'] = 'nova_loja';
 	$config['host'] = 'localhost';
 	$config['dbuser'] = 'root';

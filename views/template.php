@@ -392,10 +392,14 @@
 	    		<div class="container">
 	    			<div class="row">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
-							<form method="POST">
-                                <input class="subemail" name="email" placeholder="<?php $this->lang->get('SUBSCRIBETEXT'); ?>">
-                                <input type="submit" value="<?php $this->lang->get('SUBSCRIBE'); ?>" />
-                            </form>
+							<!-- MailChimp -->
+							<form action="<?php echo MAIL_CHIMP_ACTION; ?>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
+								<input type="email" value="" name="EMAIL" class="subemail required email" id="mce-EMAIL" 
+								placeholder="<?php $this->lang->get('SUBSCRIBETEXT'); ?>">
+								<input type="hidden" name="<?php echo MAIL_CHIMP_INPUT; ?>" tabindex="-1" value="">
+								<input type="submit" value="<?php $this->lang->get('SUBSCRIBE'); ?>" name="subscribe" id="mc-embedded-subscribe" class="button">
+							</form>
+
 						</div>
 					</div>
 	    		</div>
