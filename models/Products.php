@@ -231,6 +231,80 @@ class Products  extends model
         return $array;
     }
 
+    public function getOptionsByProductId($id)
+    {
+        $options = array();
+
+        // Etapa 1 - Pegar os nomes das opções.
+        $sql = "SELECT options FROM products WHERE id = :id";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+        
+        if ($sql->rowCount() > 0) {
+            $options = $sql->fetch();
+            $options = $options['options'];
+
+            if (!empty($options)) {
+                $sql = "SELECT * FROM options WHERE id IN (".$options.")";
+                $sql = $this->db->query($sql);
+                $options = $sql->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            // Etapa 2 - Pegar os valores das opções.
+            $sql = "SELECT * FROM products_options WHERE id_product = :id";
+            $sql = $this->db->prepare($sql);
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+            $options_values = array();
+
+            if ($sql->rowCount() > 0) {
+                foreach($sql->fetchAll() as $op) {
+                    $options_values[$op['id_option']] = $op['p_value'];
+                }
+            }
+
+            // Etapa 3 - Juntar tudo em um único array
+            foreach($options as $ok => $op) {
+                if (isset($options_values[$op['id']])) {                    
+                    $options[$ok]['value'] = $options_values[$op['id']];
+                } else {                    
+                    $options[$ok]['value'] = '';
+                }                
+            }
+        }
+
+        return $options;
+    }
+
+    
+    public function getProductInfo($id)
+    {
+        $array = array();
+        if (!empty($id)) {
+            $sql = "SELECT *,
+             (SELECT brands.name FROM brands WHERE brands.id = products.id_brand) as brand_name
+             FROM products WHERE id = :id";
+            $sql = $this->db->prepare($sql);
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+            }
+        }
+        return $array;
+    }
+
+    public function getRates($id, $qt)
+    {
+        $array = array();
+        $rates = new Rates();
+        $array = $rates->getRates($id, $qt);
+
+        return $array;
+    }
+
     private function buildWhere($filters)
     {
         $where = array('1=1');

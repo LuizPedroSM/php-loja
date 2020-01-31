@@ -40,7 +40,6 @@ class homeController extends controller {
         $dados['widget_featured2'] = $products->getList(0, 3, array('featured' => '1'), true);
         $dados['widget_sale'] = $products->getList(0, 3, array('sale' => '1'), true);
         $dados['widget_toprated'] = $products->getList(0, 3, array('toprated' => '1'));
-        // print_r($dados['widget_sale']);exit;
  
         $dados['filters'] = $f->getFilters($filters);
         $dados['filters_selected'] = $filters;
