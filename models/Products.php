@@ -255,6 +255,10 @@ class Products  extends model
         if (!empty($filters['slider1'])) {
             $where[] = "price <= :slider1";
         }
+        
+        if (!empty($filters['searchTerm'])) {
+            $where[] = "name LIKE :searchTerm";
+        }
 
         return $where;
     }
@@ -271,6 +275,10 @@ class Products  extends model
 
         if (!empty($filters['slider1'])) {
             $sql->bindValue(":slider1", $filters['slider1']);
+        }
+
+        if (!empty($filters['searchTerm'])) {
+            $sql->bindValue(":searchTerm",'%'.$filters['searchTerm'].'%');
         }
     }
 }

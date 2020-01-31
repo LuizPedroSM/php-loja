@@ -42,10 +42,34 @@
 						<div class="head_email">contato@<span>loja2.com.br</span></div>
 						
 						<div class="search_area">
-							<form method="GET">
-								<input type="text" name="s" required placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" />
+							<form action="<?php echo BASE_URL; ?>search" method="GET">
+								<input type="text" name="s" 
+									required 
+									value="<?php echo (!empty($viewData['searchTerm']))? $viewData['searchTerm'] : ''; ?>" 
+									placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" 
+								/>
 								<select name="category">
 									<option value=""><?php $this->lang->get('ALLCATEGORIES'); ?></option>
+									<?php foreach($viewData['categories'] as $cat): ?>
+										<option 
+											<?php echo ($viewData['category'] == $cat['id'])? 'selected="selected"' : ''; ?>
+											value="<?php echo $cat['id']; ?>"
+										>
+											<?php echo $cat['name']; ?>
+										</option>
+										
+										<?php 
+											if(count($cat['subs']) > 0) {
+												$this->loadView('search_subcategory', array(
+													'subs' => $cat['subs'],
+													'level' => 1,
+													'category' => $viewData['category']
+												));
+											}
+										?>
+									<?php endforeach; ?>
+
+									
 								</select>
 								<input type="submit" value="" />
 						    </form>
@@ -112,7 +136,11 @@
 				  	<aside>
 				  		<h1><?php $this->lang->get('FILTER'); ?></h1>
 				  		<div class="filterarea">
-							<form method="get">							  
+							<form method="get">	
+
+								<input type="hidden" name="s" value="<?php echo $viewData['searchTerm']; ?>">
+								<input type="hidden" name="category" value="<?php echo $viewData['category']; ?>">								
+							
 								<div class="filterbox">
 									<div class="filtertitle">
 										<?php $this->lang->get('BRANDS'); ?>
