@@ -1,48 +1,37 @@
 <?php
-class productController extends controller {
-
+class productController extends controller 
+{
 	private $user;
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
     }
 
-    public function index() { header("Location: ".BASE_URL); }
+    public function index() 
+    { 
+        header("Location: ".BASE_URL); 
+    }
 
     public function open($id)
-    {
-        $dados = array();
-
+    {     
+        $store = new Store();     
         $products = new Products();
-        $categories = new Categories();
-        $f = new Filters();     
-
-        $filters = array();
+        $categories = new Categories();       
+        
+        $data = $store->getTemplateData();
 
         $info = $products->getProductInfo($id);
 
         if (count($info) > 0) {
-            $dados['product_info'] = $info;
-            $dados['product_images'] = $products->getImagesByProductId($id);
-            $dados['product_options'] = $products->getOptionsByProductId($id);
-            $dados['product_rates'] = $products->getRates($id, 5);
+            $data['product_info'] = $info;
+            $data['product_images'] = $products->getImagesByProductId($id);
+            $data['product_options'] = $products->getOptionsByProductId($id);
+            $data['product_rates'] = $products->getRates($id, 5);
             
-            $dados['categories'] = $categories->getList();
-
-            $dados['widget_featured1'] = $products->getList(0, 5, array('featured' => '1'), true);
-            $dados['widget_featured2'] = $products->getList(0, 3, array('featured' => '1'), true);
-            $dados['widget_sale'] = $products->getList(0, 3, array('sale' => '1'), true);
-            $dados['widget_toprated'] = $products->getList(0, 3, array('toprated' => '1'));
-
-            $dados['filters'] = $f->getFilters($filters);
-            $dados['filters_selected'] = $filters;
-            $dados['searchTerm'] = '';
-            $dados['category'] = '';
-
-            $this->loadTemplate('product', $dados);
+            $this->loadTemplate('product', $data);
         } else {
             header("Location: ".BASE_URL);
         }
     }
-
 }

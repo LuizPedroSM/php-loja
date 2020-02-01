@@ -1,18 +1,20 @@
 <?php
-class searchController extends controller {
-
+class searchController extends controller 
+{
 	private $user;
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
     }
 
-    public function index() {
-        $dados = array();
-
+    public function index() 
+    {
+        $store = new Store();         
         $products = new Products();
         $categories = new Categories();
         $f = new Filters();
+        $data = $store->getTemplateData();
 
         if (!empty($_GET['s'])){
             $searchTerm = $_GET['s'];        
@@ -36,21 +38,24 @@ class searchController extends controller {
 
             $offset = ($currentPage * $limit) - $limit;;
 
-            $dados['list'] = $products->getList($offset, $limit, $filters);
-            $dados['totalItens'] = $products->getTotal($filters);
-            $dados['numberOfPages'] = ceil($dados['totalItens'] / $limit);
-            $dados['currentPage'] = $currentPage;
+            $data['list'] = $products->getList($offset, $limit, $filters);
+            $data['totalItens'] = $products->getTotal($filters);
+            $data['numberOfPages'] = ceil($data['totalItens'] / $limit);
+            $data['currentPage'] = $currentPage;
             
-            $dados['categories'] = $categories->getList();
-            $dados['filters'] = $f->getFilters($filters);
-            $dados['filters_selected'] = $filters;
-            $dados['searchTerm'] = $searchTerm;
-            $dados['category'] = $category;
+            $data['categories'] = $categories->getList();
 
-            $this->loadTemplate('search', $dados);
+            $data['filters'] = $f->getFilters($filters);
+            $data['filters_selected'] = $filters;
+
+            $data['searchTerm'] = $searchTerm;
+            $data['category'] = $category;
+
+            $data['sidebar'] = true;
+
+            $this->loadTemplate('search', $data);
         } else {
             header("Location: ".BASE_URL);
         }
     }
-
 }

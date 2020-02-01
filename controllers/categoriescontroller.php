@@ -1,25 +1,29 @@
 <?php
-class categoriesController extends controller {
-
+class categoriesController extends controller 
+{
 	private $user;
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
     }
+
     public function index()
     {
         header("Location: ".BASE_URL);
     }
 
-    public function enter($id) {
-        $dados = array();
-
+    public function enter($id) 
+    {   
+        $store = new Store();       
         $categories = new Categories();        
-        $products = new Products();        
-        $dados['category_name'] = $categories->getCategoryName($id);
-        if (!empty($dados['category_name'])) {
-            $dados['category_filter'] = $categories->getCategoryTree($id);            
+        $products = new Products();  
+        $f = new Filters();  
 
+        $data = $store->getTemplateData();
+        $data['category_name'] = $categories->getCategoryName($id);
+
+        if (!empty($data['category_name'])) {
             $currentPage = 1;
             $offset = 0;
             $limit = 3;
@@ -32,17 +36,27 @@ class categoriesController extends controller {
 
             $filters = array('category' => $id);
 
-            $dados['list'] = $products->getList($offset, $limit, $filters);
-            $dados['totalItens'] = $products->getTotal($filters);
-            $dados['numberOfPages'] = ceil($dados['totalItens'] / $limit);
-            $dados['currentPage'] = $currentPage;
-            $dados['id_category'] = $id;
+            $data['category_filter'] = $categories->getCategoryTree($id); 
 
-            $dados['categories'] = $categories->getList();
-            $this->loadTemplate('categories', $dados);
+            $data['list'] = $products->getList($offset, $limit, $filters);
+            $data['totalItens'] = $products->getTotal($filters);
+            $data['numberOfPages'] = ceil($data['totalItens'] / $limit);
+            $data['currentPage'] = $currentPage;
+
+            $data['id_category'] = $id;
+
+            $data['filters'] = $f->getFilters($filters);
+            $data['filters_selected'] = $filters;
+            $data['searchTerm'] = '';
+            $data['category'] = '';
+
+            $data['categories'] = $categories->getList();
+
+            $data['sidebar'] = true;
+
+            $this->loadTemplate('categories', $data);
         } else {
             header("Location: ".BASE_URL);
         }
     }
-
 }

@@ -1,20 +1,24 @@
 <?php
-class homeController extends controller {
-
+class homeController extends controller 
+{
 	private $user;
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
     }
 
-    public function index() {
-        $dados = array();
-
+    public function index() 
+    {        
+        $store = new Store();        
         $products = new Products();
-        $categories = new Categories();
+        $categories = new Categories();        
         $f = new Filters();
 
+        $data = $store->getTemplateData();
+
         $filters = array();
+
         if (!empty($_GET['filter']) && is_array($_GET['filter'])) {
             $filters = $_GET['filter'];
         }
@@ -29,24 +33,19 @@ class homeController extends controller {
 
         $offset = ($currentPage * $limit) - $limit;;
 
-        $dados['list'] = $products->getList($offset, $limit, $filters);
-        $dados['totalItens'] = $products->getTotal($filters);
-        $dados['numberOfPages'] = ceil($dados['totalItens'] / $limit);
-        $dados['currentPage'] = $currentPage;
-        
-        $dados['categories'] = $categories->getList();
-
-        $dados['widget_featured1'] = $products->getList(0, 5, array('featured' => '1'), true);
-        $dados['widget_featured2'] = $products->getList(0, 3, array('featured' => '1'), true);
-        $dados['widget_sale'] = $products->getList(0, 3, array('sale' => '1'), true);
-        $dados['widget_toprated'] = $products->getList(0, 3, array('toprated' => '1'));
+        $data['list'] = $products->getList($offset, $limit, $filters);
+        $data['totalItens'] = $products->getTotal($filters);
+        $data['numberOfPages'] = ceil($data['totalItens'] / $limit);
+        $data['currentPage'] = $currentPage;
  
-        $dados['filters'] = $f->getFilters($filters);
-        $dados['filters_selected'] = $filters;
-        $dados['searchTerm'] = '';
-        $dados['category'] = '';
+        $data['filters'] = $f->getFilters($filters);
+        $data['filters_selected'] = $filters;
 
-        $this->loadTemplate('home', $dados);
+        $data['searchTerm'] = '';
+        $data['category'] = '';
+
+        $data['sidebar'] = true;
+
+        $this->loadTemplate('home', $data);
     }
-
 }
