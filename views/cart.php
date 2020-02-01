@@ -20,7 +20,11 @@
             <td><?php echo $item['name']; ?></td>
             <td><?php echo $item['qt']; ?></td>
             <td><?php echo 'R$ '.number_format($item['price'], 2, ',', '.'); ?></td>
-            <td><a href="<?php echo BASE_URL; ?>cart/del/<?php echo $item['id']; ?>"><img width="15" src="<?php echo BASE_URL; ?>assets/images/delete.png" ></a></td>
+            <td>
+                <a href="<?php echo BASE_URL; ?>cart/del/<?php echo $item['id']; ?>">
+                    <img width="15" src="<?php echo BASE_URL; ?>assets/images/delete.png" >
+                </a>
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
@@ -28,4 +32,34 @@
         <td colspan="3" align="right" >Sub-Total: </td>
         <td><strong><?php echo 'R$ '.number_format($subtotal, 2, ',', '.'); ?></strong></td>
     </tr>
+    <tr>
+        <td colspan="3" align="right" >Frete: </td>
+        <td>
+            <?php if(isset($shipping['price'])): ?>
+                <strong>R$ <?php echo $shipping['price']; ?></strong>
+                (<?php echo $shipping['date']; ?> dia<?php echo ($shipping['date'] == '1')?'':'s'; ?>)
+            <?php else: ?>
+                Qual seu CEP? <br>
+                <form action="" method="post">
+                    <input type="number" name="cep">
+                    <input type="submit" value="Calcular">
+                </form>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="right" >Total: </td>
+        <td>
+            <strong>
+                R$ <?php 
+                    $frete = floatval(str_replace(',', '.', $shipping['price']));
+                    $total = $subtotal + $frete;
+                    echo number_format($total, 2, ',', '.'); 
+                ?>
+            </strong>
+        </td>
+    </tr>
 </table>
+
+<hr>
+

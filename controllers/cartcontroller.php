@@ -14,6 +14,19 @@ class cartController extends controller
         $products = new Products();
         $cart = new Cart();
 
+        $cep = '';
+        $shipping = array();
+
+        if (!empty($_POST['cep'])) {
+            $cep = intval($_POST['cep']);
+            $shipping = $cart->shippingCalculate($cep);
+            $_SESSION['shipping'] = $shipping;
+        }
+
+        if (!empty($_SESSION['shipping'])) {
+            $shipping = $_SESSION['shipping'];
+        }
+
         if (
             !isset($_SESSION['cart']) ||
             (isset($_SESSION['cart']) && count($_SESSION['cart']) == 0)
@@ -21,7 +34,9 @@ class cartController extends controller
             header("Location: ".BASE_URL);exit;  
         }
 
-        $data = $store->getTemplateData();    
+        $data = $store->getTemplateData(); 
+
+        $data['shipping'] = $shipping;    
         $data['list'] = $cart->getList();    
 
 
