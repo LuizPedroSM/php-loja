@@ -1,6 +1,24 @@
 <?php
 class Products  extends model
 {
+    public function getInfo($id)
+    {
+        $array = array();
+        if (!empty($id)) {
+            $sql = "SELECT name, price FROM products WHERE id = :id";
+            $sql = $this->db->prepare($sql);
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($sql->rowCount() > 0) {
+                $array = $sql->fetch();
+                $images = current($this->getImagesByProductId($id));
+                $array['image'] = $images['url'];
+            }
+        }
+        return $array;
+    }
+
     public function getAvailableOptions($filters = array())
     {
         $groups = array();

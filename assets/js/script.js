@@ -39,6 +39,7 @@ $(function () {
         }
 
         $('.addtocart_qt').val(qt);
+        $('input[name=qt_product]').val(qt);
     });
 
     $('.photo_item').on('click', function () {

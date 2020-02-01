@@ -28,7 +28,9 @@
         Por:
         <span class="price_now"> <?php echo 'R$ '.number_format($product_info['price'], 2, ',', '.'); ?> </span>
 
-        <form class="addtocartform" method="post">
+        <form class="addtocartform" method="post" action="<?php echo BASE_URL; ?>cart/add">
+            <input type="hidden" name="id_product" value="<?php echo $product_info['id']; ?>">
+            <input type="hidden" name="qt_product" value="1">
             <button data-action="decrease">-</button><input class="addtocart_qt" type="number" name="qt" id="qt" value="1" disabled><button data-action="increase">+</button>
             <input class="addtocart_submit" type="submit" value="<?php $this->lang->get('ADD_TO_CART'); ?>">
         </form>
