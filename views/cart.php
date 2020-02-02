@@ -52,7 +52,11 @@
         <td>
             <strong>
                 R$ <?php 
-                    $frete = floatval(str_replace(',', '.', $shipping['price']));
+                    if (isset($shipping['price'])) {
+                        $frete = floatval(str_replace(',', '.', $shipping['price']));
+                    } else {
+                        $frete = 0;
+                    }
                     $total = $subtotal + $frete;
                     echo number_format($total, 2, ',', '.'); 
                 ?>
@@ -63,3 +67,11 @@
 
 <hr>
 
+<?php if($frete > 0): ?>
+    <form action="<?php echo BASE_URL; ?>cart/payment_redirect" method="post" style="float:right" >
+        <select name="payment_type">
+            <option value="checkout_transparente">Pagseguro Checkout Transparente</option>
+        </select>
+        <input class="button" type="submit" value="Finalizar Compra">
+    </form>
+<?php endif; ?>

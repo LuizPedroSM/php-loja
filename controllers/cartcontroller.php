@@ -69,4 +69,18 @@ class cartController extends controller
         }
         header("Location: ".BASE_URL."cart");exit;            
     }
+
+    public function payment_redirect()
+    {
+        if (!empty($_POST['payment_type'])) {            
+            $payment_type = $_POST['payment_type'];
+
+            switch ($payment_type) {
+                case 'checkout_transparente':
+                    header("Location: ".BASE_URL."psckttransparente");exit;
+                    break;
+            }
+        }
+        header("Location: ".BASE_URL."cart");exit;
+    }
 }
