@@ -60,7 +60,12 @@
     <?php endfor; ?>
 </select><br><br>
 
-<button class="button">Efetuar Compra</button>
+<strong>Parcelas:</strong><br>
+<select name="parc">
+
+</select><br><br>
+
+<button class="button efetuarCompra">Efetuar Compra</button>
 
 <script src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/js/psckttransparente.js"></script>
