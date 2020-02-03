@@ -8,6 +8,9 @@
 <strong>CPF: </strong><br>
 <input type="text" name="cpf" value="15254349778" ><br><br>
 
+<strong>Telefone: </strong><br>
+<input type="text" name="telefone" value="83987654321" ><br><br>
+
 <strong>E-mail: </strong><br>
 <input type="email" name="email" value="c48632106402220081750@sandbox.pagseguro.com.br" ><br><br>
 
@@ -38,6 +41,12 @@
 <input type="text" name="estado" value="PB" ><br><br>
 
 <h3>Informaçoes de Pagamento</h3>
+
+<strong>Titular do cartão: </strong><br>
+<input type="text" name="cartao_titular" value="Luiz Pedro"><br><br>
+
+<strong>CPF do Titular do cartão: </strong><br>
+<input type="text" name="cartao_cpf" value="15254349778"><br><br>
 <!-- 4111111111111111 -->
 <strong>Número do cartão: </strong><br>
 <input type="text" name="cartao_numero"><br><br>
@@ -64,6 +73,8 @@
 <select name="parc">
 
 </select><br><br>
+
+<input type="hidden" name="total" value="<?php echo $total; ?>" />
 
 <button class="button efetuarCompra">Efetuar Compra</button>
 
