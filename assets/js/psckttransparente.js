@@ -1,6 +1,7 @@
 $(function () {
 
     $('.efetuarCompra').on('click', function () {
+        $('.efetuarCompra').prop('disabled', true);
         let id = PagSeguroDirectPayment.getSenderHash();
 
         let name = $('input[name=name]').val();
@@ -66,6 +67,8 @@ $(function () {
                         success: function (json) {
                             if (json.error == true) {
                                 alert(json.msg);
+                            } else {
+                                window.location.href = BASE_URL + "psckttransparente/obrigado"
                             }
                         },
                         error: function (r) {

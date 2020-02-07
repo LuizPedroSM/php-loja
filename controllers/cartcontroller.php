@@ -1,5 +1,5 @@
 <?php
-class cartController extends controller 
+class cartController extends Controller 
 {
 	private $user;
 

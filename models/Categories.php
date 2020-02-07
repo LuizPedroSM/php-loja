@@ -1,5 +1,5 @@
 <?php
-class Categories  extends model
+class Categories  extends Model
 {
     public function getList()
     {

@@ -1,5 +1,5 @@
 <?php
-class Purchases extends model 
+class Purchases extends Model 
 {
     public function createPurchase($uid, $total, $payment_type)
     {
@@ -25,6 +25,24 @@ class Purchases extends model
         $sql->bindValue(":idp", $id_product);
         $sql->bindValue(":qt", $qt);
         $sql->bindValue(":price", $price);
+        $sql->execute();
+    }
+
+    public function setPaid($id)
+    {
+        $sql = "UPDATE purchases SET payment_status = :status WHERE id = :id";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(":status", '2');
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
+    public function setCancelled($id)
+    {
+        $sql = "UPDATE purchases SET payment_status = :status WHERE id = :id";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(":status", '3');
+        $sql->bindValue(":id", $id);
         $sql->execute();
     }
 }

@@ -6,7 +6,7 @@
 <input type="text" name="name" value="Luiz Pedro"><br><br>
 
 <strong>CPF: </strong><br>
-<input type="text" name="cpf" value="15254349778" ><br><br>
+<input type="text" name="cpf" ><br><br>
 
 <strong>Telefone: </strong><br>
 <input type="text" name="telefone" value="83987654321" ><br><br>
@@ -46,15 +46,15 @@
 <input type="text" name="cartao_titular" value="Luiz Pedro"><br><br>
 
 <strong>CPF do Titular do cartão: </strong><br>
-<input type="text" name="cartao_cpf" value="15254349778"><br><br>
+<input type="text" name="cartao_cpf" ><br><br>
 <!-- 4111111111111111 -->
-<strong>Número do cartão: </strong><br>
+<strong>Número do cartão: 4111111111111111</strong><br>
 <input type="text" name="cartao_numero"><br><br>
 <!-- 123 -->
-<strong>Código de segurança: </strong><br>
+<strong>Código de segurança: 123</strong><br>
 <input type="text" name="cartao_cvv" ><br><br>
 <!-- 12/2030 -->
-<strong>Validade: </strong><br>
+<strong>Validade: 12/2030</strong><br>
 <select name="cartao_mes">
     <?php for ($i=1; $i <=12 ; $i++): ?>
         <option><?php echo ($i<10)? '0'.$i : $i; ?></option>

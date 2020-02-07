@@ -1,5 +1,5 @@
 <?php
-class Rates extends model 
+class Rates extends Model 
 {
     public function getRates($id, $qt)
     {

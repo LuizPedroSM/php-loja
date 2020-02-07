@@ -1,5 +1,5 @@
 <?php
-class Products  extends model
+class Products  extends Model
 {
     public function getInfo($id)
     {

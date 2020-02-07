@@ -1,5 +1,5 @@
 <?php
-class psckttransparenteController extends controller 
+class psckttransparenteController extends Controller 
 {
 	private $user;
 
@@ -171,13 +171,14 @@ class psckttransparenteController extends controller
         );
 
         $creditCard->setToken($cartao_token);
-        $creditCard->setInstallment()->withParameters($parc[0], $parc[1]); //,floatval($parc[2])
+        $creditCard->setInstallment()->withParameters($parc[0], $parc[1]);//, $parc[2]);
         $creditCard->setHolder()->setName($cartao_titular);
         $creditCard->setHolder()->setDocument()->withParameters('CPF', $cartao_cpf);
 
         $creditCard->setMode('DEFAULT');
-        // print_r($creditCard);exit;
 
+        $creditCard->setNotificationUrl(BASE_URL."psckttransparente/notification");
+        
         try {
             $result = $creditCard->register(
                 \PagSeguro\Configuration\Configure::getAccountCredentials()
@@ -185,6 +186,54 @@ class psckttransparenteController extends controller
 
             echo json_encode($result);exit;
         } catch (Exception $e) {
+            echo json_encode(array(
+                'error' => true,
+                 'msg'=> $e->getMessage()
+                )
+            );exit;
+        }
+    }
+
+    public function obrigado()
+    {
+        unset($_SESSION['cart']);
+        $store = new Store();
+        $data = $store->getTemplateData(); 
+
+        $this->loadTemplate("psckttransparente_obrigado", $data);
+    }
+
+    public function notification()
+    {
+        $purchases = new Purchases();
+
+        try {
+            if (\PagSeguro\Helpers\Xhr::hasPost()) {
+                $r = \PagSeguro\Services\Transactions\Notification::check(
+                    \PagSeguro\Configuration\Configure::getAccountCredentials()
+                );
+
+                $ref = $r->getReference();
+                $status = $r->getStatus();
+                /*
+                1 = Aguardando Pagamento
+                2 = Em análise
+                3 = Paga
+                4 = Disponível
+                5 = Em disputa
+                6 = Devolvida
+                7 = Cancelada
+                8 = Debitado
+                9 = Retenção Temporária = Chargeback                
+                */
+
+                if ($status == 3) {
+                    $purchases->setPaid($ref);
+                } elseif ($status == 7) {
+                    $purchases->setCancelled($ref);
+                }
+            }
+        } catch (Exception $e ) {
             echo json_encode(array(
                 'error' => true,
                  'msg'=> $e->getMessage()

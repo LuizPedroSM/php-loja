@@ -1,5 +1,5 @@
 <?php
-class Filters  extends model
+class Filters  extends Model
 {
     public function getFilters($filters)
     {

@@ -1,5 +1,5 @@
 <?php
-class searchController extends controller 
+class searchController extends Controller 
 {
 	private $user;
 

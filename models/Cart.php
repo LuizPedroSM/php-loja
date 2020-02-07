@@ -1,5 +1,5 @@
 <?php
-class Cart extends model 
+class Cart extends Model 
 {
     public function getList()
     {

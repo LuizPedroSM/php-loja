@@ -1,5 +1,5 @@
 <?php
-class Options extends model 
+class Options extends Model 
 {
     public function getName($id)
     {

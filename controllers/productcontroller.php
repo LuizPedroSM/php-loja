@@ -1,5 +1,5 @@
 <?php
-class productController extends controller 
+class productController extends Controller 
 {
 	private $user;
 

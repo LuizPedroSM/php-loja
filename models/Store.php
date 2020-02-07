@@ -1,5 +1,5 @@
 <?php
-class Store extends model 
+class Store extends Model 
 {
     public function getTemplateData()
     {
