@@ -91,7 +91,7 @@ class psckttransparenteController extends Controller
             $uid = $users->createUser($email,$pass, $name);
         }
 
-                $list = $cart->getList();
+        $list = $cart->getList();
         $total = 0;
 
         foreach($list as $item) {

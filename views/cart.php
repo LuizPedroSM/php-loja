@@ -71,6 +71,7 @@
     <form action="<?php echo BASE_URL; ?>cart/payment_redirect" method="post" style="float:right" >
         <select name="payment_type">
             <option value="checkout_transparente">Pagseguro Checkout Transparente</option>
+            <option value="mp">Mercado Pago</option>
         </select>
         <input class="button" type="submit" value="Finalizar Compra">
     </form>
