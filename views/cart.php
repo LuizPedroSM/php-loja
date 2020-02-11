@@ -73,6 +73,7 @@
             <option value="checkout_transparente">Pagseguro Checkout Transparente</option>
             <option value="mp">Mercado Pago</option>
             <option value="paypal">PayPal</option>
+            <option value="boleto">Boleto</option>
         </select>
         <input class="button" type="submit" value="Finalizar Compra">
     </form>
