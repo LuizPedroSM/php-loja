@@ -196,7 +196,7 @@ class Products  extends Model
             (SELECT categories.name FROM categories WHERE categories.id = products.id_category) as category_name        
         FROM 
         products 
-        WHERE ".implode(' AND ', $where)."
+        WHERE stock > 0 AND ".implode(' AND ', $where)."
         ".$orderBySQL."
         LIMIT $offset, $limit";
 
@@ -223,7 +223,7 @@ class Products  extends Model
     {
         $where = $this->buildWhere($filters);
 
-        $sql = "SELECT COUNT(*) as c FROM products WHERE ".implode(' AND ', $where);
+        $sql = "SELECT COUNT(*) as c FROM products WHERE stock > 0 AND ".implode(' AND ', $where);
         $sql = $this->db->prepare($sql);
 
         $this->bindWhere($filters, $sql);

@@ -35,16 +35,12 @@
     <tr>
         <td colspan="3" align="right" >Frete: </td>
         <td>
-            <?php if(isset($shipping['price'])): ?>
-                <strong>R$ <?php echo $shipping['price']; ?></strong>
-                (<?php echo $shipping['date']; ?> dia<?php echo ($shipping['date'] == '1')?'':'s'; ?>)
-            <?php else: ?>
-                Qual seu CEP? <br>
-                <form action="" method="post">
-                    <input type="number" name="cep">
-                    <input type="submit" value="Calcular">
-                </form>
-            <?php endif; ?>
+            <strong>R$ <?php echo $shipping['price']; ?></strong>
+            (<?php echo $shipping['date']; ?> dia<?php echo ($shipping['date'] == '1')?'':'s'; ?>)
+            <form action="" method="post">
+                <input type="number" name="cep" placeholder="Qual seu CEP? ">
+                <input type="submit" value="Calcular">
+            </form>
         </td>
     </tr>
     <tr>
