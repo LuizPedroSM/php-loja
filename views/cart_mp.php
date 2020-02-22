@@ -9,41 +9,41 @@
 
 <form method="post">
     <strong>Nome: </strong><br>
-    <input type="text" name="name" value="Luiz Pedro"><br><br>
+    <input type="text" name="name"><br><br>
 
     <strong>CPF: </strong><br>
-    <input type="text" name="cpf" value="15254349778" ><br><br>
+    <input type="text" name="cpf"><br><br>
 
     <strong>Telefone: </strong><br>
-    <input type="text" name="telefone" value="83987654321"><br><br>
+    <input type="text" name="telefone"><br><br>
 
     <strong>E-mail: </strong><br>
-    <input type="email" name="email" value="teste@teste.com" ><br><br>
+    <input type="email" name="email"><br><br>
 
     <strong>Senha: </strong><br>
-    <input type="password" name="pass" value="123"><br><br>
+    <input type="password" name="pass"><br><br>
 
     <h3>Informaçoes de Endereço</h3>
 
     <strong>CEP: </strong><br>
-    <input type="text" name="cep" value="58410340" ><br><br>
+    <input type="text" name="cep"><br><br>
 
     <strong>Rua: </strong><br>
-    <input type="text" name="rua" value="Rua Vigário Calixto"><br><br>
+    <input type="text" name="rua"><br><br>
 
     <strong>Número: </strong><br>
-    <input type="text" name="numero" value="1400"><br><br>
+    <input type="text" name="numero"><br><br>
 
     <strong>Complemento: </strong><br>
-    <input type="text" name="complemento" ><br><br>
+    <input type="text" name="complemento"><br><br>
 
     <strong>Bairro: </strong><br>
-    <input type="text" name="bairro" value="Catolé" ><br><br>
+    <input type="text" name="bairro"><br><br>
 
     <strong>Cidade: </strong><br>
-    <input type="text" name="cidade" value="Campina Grande" ><br><br>
+    <input type="text" name="cidade"><br><br>
 
     <strong>Estado: </strong><br>
-    <input type="text" name="estado" value="PB" ><br><br>
+    <input type="text" name="estado"><br><br>
     <input class="button efetuarCompra" type="submit" value="Efetuar Compra">
 </form>

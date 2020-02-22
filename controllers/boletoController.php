@@ -96,7 +96,7 @@ class boletoController extends Controller
                 );
 
                 $body = array (
-                    'metadate' => $metadata,
+                    'metadata' => $metadata,
                     'items' => $items,
                     'shippings' => $shipping
                 );
